@@ -7,6 +7,7 @@
 
 import UIKit
 import Utils
+import UIModule
 
 class PokemonListViewController: UIViewController {
     
@@ -34,7 +35,7 @@ class PokemonListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = Colors.background.color
         viewModel.requestList()
     }
     

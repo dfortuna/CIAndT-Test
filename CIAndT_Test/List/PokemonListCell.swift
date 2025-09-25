@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Utils
+import UIModule
 
 class PokemonListCell: UITableViewCell {
     
@@ -15,7 +16,7 @@ class PokemonListCell: UITableViewCell {
         let label: UILabel = UILabel()
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.textColor = .black
+        label.textColor = Colors.text.color
         return label
     }()
 

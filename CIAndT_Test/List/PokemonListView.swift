@@ -7,6 +7,7 @@
 
 import UIKit
 import Utils
+import UIModule
 
 public final class ErrorView: UIView { }
 
@@ -19,13 +20,20 @@ public final class PokemonListView: UIView {
     lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.register(PokemonListCell.self, forCellReuseIdentifier: String(describing: PokemonListCell.self))
-        tableView.backgroundColor = .lightGray
+        tableView.backgroundColor = Colors.background.color
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-//        tableView.separatorColor =
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.refreshControl = refreshControl
         return tableView
+    }()
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        refresh.tintColor = .systemBlue
+        return refresh
     }()
 
     init(viewModel: PokemonListViewModelProtocol) {
@@ -37,6 +45,11 @@ public final class PokemonListView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc
+    private func didPullToRefresh() {
+        viewModel.requestList()
     }
     
 }
@@ -108,6 +121,7 @@ extension PokemonListView: UITableViewDelegate, UITableViewDataSource {
 
 extension PokemonListView: PokemonListViewModelDelegate {
     func loadData(pokemons: [Pokemon]) {
+        refreshControl.endRefreshing()
         tableView.reloadData()
     }
 }
