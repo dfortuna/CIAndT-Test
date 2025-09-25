@@ -9,35 +9,49 @@ import Networking
 import UIKit
 
 protocol PokemonListViewModelProtocol: AnyObject {
+    var pokemons: [Pokemon] { get }
+    var delegate: PokemonListViewModelDelegate? { get set }
     func requestList()
+    func didSelectRow(at index: Int)
+}
+
+protocol PokemonListViewModelDelegate: AnyObject {
+    func loadData(pokemons: [Pokemon])
 }
 
 public final class PokemonListViewModel: PokemonListViewModelProtocol {
     
-//    private var service: NetworkServiceProtocol
-//    public weak var delegate: SearchResultContentViewProtocol?
+    weak var delegate: PokemonListViewModelDelegate?
+    private var service: NetworkingManagerProtocol
     
-    public init(
-//        service: NetworkServiceProtocol = ServiceModule()
-    ) {
-//        self.service = service
+    private(set) var pokemons: [Pokemon] = [] {
+        didSet {
+            delegate?.loadData(pokemons: pokemons)
+        }
+    }
+
+    public init(service: NetworkingManagerProtocol = NetworkingManager()) {
+        self.service = service
     }
 
     func requestList() {
         let router: Router = .list
-        NetworkingManager().request(endpoint: router) { [weak self] (result: Result<Pokemon, Error>) in
+        service.request(endpoint: router) { [weak self] (result: Result<PokemonsListData, Error>) in
             guard let self = self else { return }
             switch result {
-            case .success(let data):
-                print(data)
+            case .success(let listData):
+                self.pokemons = listData.results
             case .failure(let error):
                 showError(error: error)
             }
         }
     }
     
-    func showError(error: Error){
+    func didSelectRow(at index: Int) {
         
     }
     
+    func showError(error: Error){
+        
+    }
 }

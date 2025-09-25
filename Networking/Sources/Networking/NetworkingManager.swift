@@ -7,7 +7,11 @@
 
 import Alamofire
 
-public class NetworkingManager {
+public protocol NetworkingManagerProtocol: AnyObject {
+    func request<T: Decodable>(endpoint: Requestable, completion: @escaping (Result<T, Error>) -> Void)
+}
+
+public class NetworkingManager: NetworkingManagerProtocol {
     
     public let sessionManager: Session
     public init(sessionManager: Session = .default) {
