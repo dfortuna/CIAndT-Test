@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Alamofire
+import Networking
 
 public enum Router: Requestable {
     case list
@@ -42,11 +42,11 @@ public enum Router: Requestable {
     public var encoding: ParameterEncoding {
         switch self {
         case .list, .itemDetail:
-            return URLEncoding.queryString
+            return .queryString
         }
     }
     
-    public var headers: Alamofire.HTTPHeaders? {
+    public var headers: HTTPHeader? {
         switch self {
         case .list, .itemDetail:
             return nil

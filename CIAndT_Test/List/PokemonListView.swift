@@ -7,7 +7,6 @@
 
 import UIKit
 import Utils
-import Networking
 
 public final class ErrorView: UIView { }
 

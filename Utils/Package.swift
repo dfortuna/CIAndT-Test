@@ -9,9 +9,15 @@ let package = Package(
             name: "Utils",
             targets: ["Utils"]),
     ],
+    dependencies: [
+        .package(path: "../Networking")
+    ],
     targets: [
         .target(
-            name: "Utils"),
+            name: "Utils",
+            dependencies: [
+                "Networking"
+            ]),
         .testTarget(
             name: "UtilsTests",
             dependencies: ["Utils"]

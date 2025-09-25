@@ -23,7 +23,7 @@ public class NetworkingManager: NetworkingManagerProtocol {
         let request: DataRequest = sessionManager.request(url,
                                                           method: endpoint.method.alamofireMethod,
                                                           parameters: endpoint.parameters,
-                                                          encoding: endpoint.encoding,
+                                                          encoding: endpoint.encoding.alamofireParameterEncoding,
                                                           headers: endpoint.headers)
         
         request.responseDecodable(of: T.self) { response in

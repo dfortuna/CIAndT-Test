@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import Utils
-import Networking
 
 class PokemonListCell: UITableViewCell {
     

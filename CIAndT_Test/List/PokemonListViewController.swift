@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Networking
+import Utils
 
 class PokemonListViewController: UIViewController {
     
