@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		38BF6FC32E84790F004EE414 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 38BF6FC22E84790F004EE414 /* Networking */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		38BF6FA32E843AAE004EE414 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		38BF6F8C2E843AA9004EE414 /* CIAndT_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIAndT_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38BF6FA22E843AAE004EE414 /* CIAndT_TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CIAndT_TestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38BF6FAC2E843AAE004EE414 /* CIAndT_TestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CIAndT_TestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		38BF6FC02E8478F6004EE414 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38BF6FC32E84790F004EE414 /* Networking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,9 +94,11 @@
 		38BF6F832E843AA9004EE414 = {
 			isa = PBXGroup;
 			children = (
+				38BF6FC02E8478F6004EE414 /* Networking */,
 				38BF6F8E2E843AA9004EE414 /* CIAndT_Test */,
 				38BF6FA52E843AAE004EE414 /* CIAndT_TestTests */,
 				38BF6FAF2E843AAE004EE414 /* CIAndT_TestUITests */,
+				38BF6FC12E84790F004EE414 /* Frameworks */,
 				38BF6F8D2E843AA9004EE414 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +111,13 @@
 				38BF6FAC2E843AAE004EE414 /* CIAndT_TestUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		38BF6FC12E84790F004EE414 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +140,7 @@
 			);
 			name = CIAndT_Test;
 			packageProductDependencies = (
+				38BF6FC22E84790F004EE414 /* Networking */,
 			);
 			productName = CIAndT_Test;
 			productReference = 38BF6F8C2E843AA9004EE414 /* CIAndT_Test.app */;
@@ -302,6 +318,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "denisFortuna.CIAndT-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -328,6 +348,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "denisFortuna.CIAndT-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -561,6 +585,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		38BF6FC22E84790F004EE414 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 38BF6F842E843AA9004EE414 /* Project object */;
 }
