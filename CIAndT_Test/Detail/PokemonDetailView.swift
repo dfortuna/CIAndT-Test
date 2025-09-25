@@ -1,5 +1,5 @@
 //
-//  PokemonListView.swift
+//  PokemonDetailView.swift
 //  CIAndT_Test
 //
 //  Created by Denis Fortuna on 25/09/25.
@@ -9,37 +9,27 @@ import UIKit
 import Utils
 import UIModule
 
-public final class ErrorView: UIView { }
-
-public final class PokemonListView: UIView {
+public final class PokemonDetailView: UIView {
     
-    var viewModel: PokemonListViewModelProtocol
+    var viewModel: PokemonDetailViewModelProtocol
 //    var errorView: ErrorView?
     var loadingView: UIView = UIView()
 
     lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView()
-        tableView.register(PokemonListCell.self, forCellReuseIdentifier: String(describing: PokemonListCell.self))
+//        tableView.register(PokemonDetailCell.self, forCellReuseIdentifier: String(describing: PokemonDetailCell.self))
         tableView.backgroundColor = Colors.background.color
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.refreshControl = refreshControl
         return tableView
     }()
-    
-    lazy var refreshControl: UIRefreshControl = {
-        let refresh = UIRefreshControl()
-        refresh.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
-        refresh.tintColor = .systemBlue
-        return refresh
-    }()
 
-    init(viewModel: PokemonListViewModelProtocol) {
+    init(viewModel: PokemonDetailViewModelProtocol) {
         self.viewModel = viewModel
         super.init(frame: .zero)
-        viewModel.delegate = self
+//        viewModel.delegate = self
         setup()
     }
 
@@ -47,14 +37,9 @@ public final class PokemonListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc
-    private func didPullToRefresh() {
-        viewModel.requestList()
-    }
-    
 }
 
-extension PokemonListView: ViewConfiguration {
+extension PokemonDetailView: ViewConfiguration {
     
     public func addSubviews() {
         addSubview(tableView)
@@ -90,42 +75,39 @@ extension PokemonListView: ViewConfiguration {
     
 }
 
-extension PokemonListView: UITableViewDelegate, UITableViewDataSource {
+extension PokemonDetailView: UITableViewDelegate, UITableViewDataSource {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.pokemons.count
+        0
+//        viewModel.pokemons.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PokemonListCell.self), for: indexPath) as? PokemonListCell else {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PokemonDetailCell.self), for: indexPath) as? PokemonDetailCell else {
             return UITableViewCell()
-        }
-        let pokemon = viewModel.pokemons[indexPath.row]
-        cell.setup(pokemon: pokemon)
-        return cell
+//        }
+//        let pokemon = viewModel.pokemons[indexPath.row]
+//        cell.setup(pokemon: pokemon)
+//        return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.didSelectRow(at: indexPath.row)
+//        viewModel.didSelectRow(at: indexPath.row)
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
     }
     
-    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        viewModel.didSelectRow(at: indexPath.row)
-    }
-    
 }
 
-extension PokemonListView: PokemonListViewModelDelegate {
+extension PokemonDetailView: PokemonDetailViewModelDelegate {
     func loadData(pokemons: [Pokemon]) {
-        refreshControl.endRefreshing()
-        tableView.reloadData()
+//        refreshControl.endRefreshing()
+//        tableView.reloadData()
     }
 }

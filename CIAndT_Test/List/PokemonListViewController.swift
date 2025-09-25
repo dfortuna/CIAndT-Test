@@ -9,6 +9,10 @@ import UIKit
 import Utils
 import UIModule
 
+protocol PokemonListViewControllerProtocol: AnyObject {
+    func didSelectItem(pokemon: Pokemon) 
+}
+
 class PokemonListViewController: UIViewController {
     
     var viewModel: PokemonListViewModelProtocol
@@ -18,7 +22,7 @@ class PokemonListViewController: UIViewController {
         self.viewModel = viewModel
         self.pokemonListView = PokemonListView(viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
-//        viewModel.controller = self
+        viewModel.controller = self
     }
     
     required init?(coder: NSCoder) {
@@ -38,5 +42,11 @@ class PokemonListViewController: UIViewController {
         view.backgroundColor = Colors.background.color
         viewModel.requestList()
     }
-    
+}
+
+extension PokemonListViewController: PokemonListViewControllerProtocol {
+    func didSelectItem(pokemon: Pokemon) {
+        print(pokemon.name)
+        print()
+    }
 }

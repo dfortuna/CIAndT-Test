@@ -12,6 +12,7 @@ import UIKit
 protocol PokemonListViewModelProtocol: AnyObject {
     var pokemons: [Pokemon] { get }
     var delegate: PokemonListViewModelDelegate? { get set }
+    var controller: PokemonListViewControllerProtocol? { get set }
     func requestList()
     func didSelectRow(at index: Int)
 }
@@ -23,6 +24,7 @@ protocol PokemonListViewModelDelegate: AnyObject {
 public final class PokemonListViewModel: PokemonListViewModelProtocol {
     
     weak var delegate: PokemonListViewModelDelegate?
+    weak var controller: PokemonListViewControllerProtocol?
     private var service: NetworkingManagerProtocol
     
     private(set) var pokemons: [Pokemon] = [] {
@@ -49,7 +51,8 @@ public final class PokemonListViewModel: PokemonListViewModelProtocol {
     }
     
     func didSelectRow(at index: Int) {
-        
+        let pokemon: Pokemon = pokemons[index]
+        controller?.didSelectItem(pokemon: pokemon)
     }
     
     func showError(error: Error){
