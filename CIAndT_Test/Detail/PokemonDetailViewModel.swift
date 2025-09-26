@@ -10,48 +10,78 @@ import Networking
 import UIKit
 
 protocol PokemonDetailViewModelProtocol: AnyObject {
-//    var pokemons: [Pokemon] { get }
-//    var delegate: PokemonDetailViewModelDelegate? { get set }
-//    func requestList()
-//    func didSelectRow(at index: Int)
+    var pokemonDetail: PokemonDetailData? { get }
+    var dataList: [String] { get }
+    var delegate: PokemonDetailViewModelDelegate? { get set }
+    func requestList()
+    func getDataNames(forIndex index: Int) -> String?
+    func getDataValue(forIndex index: Int) -> String?
 }
 
 protocol PokemonDetailViewModelDelegate: AnyObject {
-//    func loadData(pokemons: [Pokemon])
+    func loadData(pokemonDetail: PokemonDetailData?)
 }
 
 public final class PokemonDetailViewModel: PokemonDetailViewModelProtocol {
     
     private let pokemon: Pokemon
-    weak var delegate: PokemonDetailViewModelDelegate?
+    private(set) var pokemonDetail: PokemonDetailData?
     private var service: NetworkingManagerProtocol
+    weak var delegate: PokemonDetailViewModelDelegate?
     
-//    private(set) var pokemons: [Pokemon] = [] {
-//        didSet {
-//            delegate?.loadData(pokemons: pokemons)
-//        }
-//    }
+    var dataList: [String] {
+        ["Sprites:", "Abilities:", "Types:", "Height:", "Weight:"]
+    }
+    
+    func getDataNames(forIndex index: Int) -> String? {
+        guard index != 0 else { return nil }
+        return dataList[index]
+    }
+    
+    func getDataValue(forIndex index: Int) -> String? {
+        guard let pokemonDetail else { return nil }
+        switch index {
+        case 0:
+            return pokemonDetail.sprites.other.home?.frontDefault
+        case 1:
+            return abilityNames(pokemonDetailData: pokemonDetail)
+        case 2:
+            return types(pokemonDetailData: pokemonDetail)
+        case 3:
+            return "\(pokemonDetail.height)"
+        case 4:
+            return "\(pokemonDetail.weight)"
+        default:
+            return nil
+        }
+    }
+    
+    private func abilityNames(pokemonDetailData: PokemonDetailData) -> String {
+        return pokemonDetailData.abilities.prefix(2).map {$0.ability.name}.joined(separator: " | ")
+    }
+    
+    private func types(pokemonDetailData: PokemonDetailData) -> String {
+        return pokemonDetailData.types.prefix(2).map { $0.type.name }.joined(separator: " | ")
+    }
 
-    public init(pokemon: Pokemon, service: NetworkingManagerProtocol = NetworkingManager()) {
+    init(pokemon: Pokemon, service: NetworkingManagerProtocol = NetworkingManager()) {
         self.pokemon = pokemon
         self.service = service
     }
 
     func requestList() {
         let router: Router = .itemDetail(itemId: pokemon.url)
-        service.request(endpoint: router) { [weak self] (result: Result<PokemonsListData, Error>) in
+        service.request(endpoint: router) { [weak self] (result: Result<PokemonDetailData, Error>) in
             guard let self = self else { return }
             switch result {
-            case .success(let listData):
-//                self.pokemons = listData.results
+            case .success(let pokemonDetail):
+                self.pokemonDetail = pokemonDetail
+                self.delegate?.loadData(pokemonDetail: self.pokemonDetail)
             case .failure(let error):
-//                showError(error: error)
+                print()
+                showError(error: error)
             }
         }
-    }
-    
-    func didSelectRow(at index: Int) {
-        
     }
     
     func showError(error: Error){

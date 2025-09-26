@@ -16,13 +16,18 @@ public enum Router: Requestable {
         switch self {
         case .list:
             return "pokemon"
-        case .itemDetail(let itemId):
-            return "pokemon/\(itemId)"
+        case .itemDetail(let item):
+            let uri = getURI(fromItem: item)
+            return "pokemon/\(uri)"
         }
     }
     
     public var baseURL: String {
         return "https://pokeapi.co/api/v2/"
+    }
+    
+    private func getURI(fromItem item: String) -> String {
+        return item.replacingOccurrences(of: baseURL + "pokemon/", with: "")
     }
     
     public var method: HTTPMethod {

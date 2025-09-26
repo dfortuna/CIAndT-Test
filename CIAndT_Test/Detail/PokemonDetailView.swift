@@ -17,7 +17,8 @@ public final class PokemonDetailView: UIView {
 
     lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView()
-//        tableView.register(PokemonDetailCell.self, forCellReuseIdentifier: String(describing: PokemonDetailCell.self))
+        tableView.register(PokemonDetailDataCell.self, forCellReuseIdentifier: String(describing: PokemonDetailDataCell.self))
+        tableView.register(PokemonDetailHeaderCell.self, forCellReuseIdentifier: String(describing: PokemonDetailHeaderCell.self))
         tableView.backgroundColor = Colors.background.color
         tableView.delegate = self
         tableView.dataSource = self
@@ -29,7 +30,7 @@ public final class PokemonDetailView: UIView {
     init(viewModel: PokemonDetailViewModelProtocol) {
         self.viewModel = viewModel
         super.init(frame: .zero)
-//        viewModel.delegate = self
+        viewModel.delegate = self
         setup()
     }
 
@@ -82,32 +83,29 @@ extension PokemonDetailView: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
-//        viewModel.pokemons.count
+        viewModel.dataList.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PokemonDetailCell.self), for: indexPath) as? PokemonDetailCell else {
-            return UITableViewCell()
-//        }
-//        let pokemon = viewModel.pokemons[indexPath.row]
-//        cell.setup(pokemon: pokemon)
-//        return cell
+        switch indexPath.row {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PokemonDetailHeaderCell.self), for: indexPath) as? PokemonDetailHeaderCell else {
+                return UITableViewCell()
+            }
+            cell.setup(viewModel: viewModel, index: indexPath.row)
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PokemonDetailDataCell.self), for: indexPath) as? PokemonDetailDataCell else {
+                return UITableViewCell()
+            }
+            cell.setup(viewModel: viewModel, index: indexPath.row)
+            return cell
+        }
     }
-    
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        viewModel.didSelectRow(at: indexPath.row)
-    }
-    
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-    }
-    
 }
 
 extension PokemonDetailView: PokemonDetailViewModelDelegate {
-    func loadData(pokemons: [Pokemon]) {
-//        refreshControl.endRefreshing()
-//        tableView.reloadData()
+    func loadData(pokemonDetail: PokemonDetailData?) {
+        tableView.reloadData()
     }
 }

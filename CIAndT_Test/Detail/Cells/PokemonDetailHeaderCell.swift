@@ -5,20 +5,19 @@
 //  Created by Denis Fortuna on 25/09/25.
 //
 
-import Foundation
 import UIKit
 import Utils
-import UIModule
+import Networking
 
 class PokemonDetailHeaderCell: UITableViewCell {
     
-//    private lazy var nameLabel: UILabel = {
-//        let label: UILabel = UILabel()
-//        label.textAlignment = .left
-//        label.numberOfLines = 0
-//        label.textColor = Colors.text.color
-//        return label
-//    }()
+    lazy var pictureImageView: UIImageView = {
+        let image: UIImageView = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.backgroundColor = .lightGray
+        image.clipsToBounds = true
+        return image
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,8 +27,9 @@ class PokemonDetailHeaderCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setup(pokemon: Pokemon) {
-//        nameLabel.text = pokemon.name
+    public func setup(viewModel: PokemonDetailViewModelProtocol, index: Int) {
+        let imageURL = viewModel.getDataValue(forIndex: index) ?? ""
+        pictureImageView.loadImage(from: imageURL)
         setup()
     }
     
@@ -42,17 +42,18 @@ class PokemonDetailHeaderCell: UITableViewCell {
 extension PokemonDetailHeaderCell: ViewConfiguration {
     
     public func addSubviews() {
-//        contentView.addSubview(nameLabel)
+        contentView.addSubview(pictureImageView)
     }
     
     public func setupConstraints() {
-//        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-//            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-//            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-//            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-//        ])
+        pictureImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pictureImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            pictureImageView.widthAnchor.constraint(equalToConstant: 300),
+            pictureImageView.heightAnchor.constraint(equalToConstant: 300),
+            pictureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            pictureImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        ])
     }
     
     public func setupStyle() {

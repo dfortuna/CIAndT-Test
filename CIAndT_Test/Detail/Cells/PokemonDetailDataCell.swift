@@ -12,13 +12,31 @@ import UIModule
 
 class PokemonDetailDataCell: UITableViewCell {
     
-//    private lazy var nameLabel: UILabel = {
-//        let label: UILabel = UILabel()
-//        label.textAlignment = .left
-//        label.numberOfLines = 0
-//        label.textColor = Colors.text.color
-//        return label
-//    }()
+    private lazy var dataName: UILabel = {
+        let label: UILabel = UILabel()
+        label.textAlignment = .right
+        label.numberOfLines = 0
+        label.textColor = Colors.text.color
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        return label
+    }()
+    
+    private lazy var dataDescription: UILabel = {
+        let label: UILabel = UILabel()
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.textColor = Colors.text.color
+        return label
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stack: UIStackView = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .fill
+        stack.distribution = .fillProportionally
+        stack.spacing = 10
+        return stack
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,8 +46,9 @@ class PokemonDetailDataCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setup(pokemon: Pokemon) {
-//        nameLabel.text = pokemon.name
+    public func setup(viewModel: PokemonDetailViewModelProtocol, index: Int) {
+        dataName.text = viewModel.getDataNames(forIndex: index)
+        dataDescription.text = viewModel.getDataValue(forIndex: index)
         setup()
     }
     
@@ -42,17 +61,23 @@ class PokemonDetailDataCell: UITableViewCell {
 extension PokemonDetailDataCell: ViewConfiguration {
     
     public func addSubviews() {
-//        contentView.addSubview(nameLabel)
+        addSubview(stackView)
+        stackView.addArrangedSubview(dataName)
+        stackView.addArrangedSubview(dataDescription)
     }
     
     public func setupConstraints() {
-//        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-//            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-//            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-//            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-//        ])
+        dataDescription.translatesAutoresizingMaskIntoConstraints = false
+        dataName.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            dataName.widthAnchor.constraint(equalToConstant: 150)
+        ])
     }
     
     public func setupStyle() {

@@ -1,5 +1,4 @@
 {
-  "originHash" : "b4b5a5461c29659f5262d86ced1840e9472eb5f5e32a4fec6ab424a10842c5cd",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -9,7 +8,16 @@
         "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
         "version" : "5.10.2"
       }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "branch" : "version6-xcode13",
+        "revision" : "d0494dd78f7adf2d3526fdf3267176553020c041"
+      }
     }
   ],
-  "version" : 3
+  "version" : 2
 }

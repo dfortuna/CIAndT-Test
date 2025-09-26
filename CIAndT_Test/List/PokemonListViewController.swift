@@ -46,7 +46,10 @@ class PokemonListViewController: UIViewController {
 
 extension PokemonListViewController: PokemonListViewControllerProtocol {
     func didSelectItem(pokemon: Pokemon) {
-        print(pokemon.name)
-        print()
+
+        let pokemonDetailListViewModel = PokemonDetailViewModel(pokemon: pokemon)
+        let pokemonDetailListViewController = PokemonDetailViewController(viewModel: pokemonDetailListViewModel)
+        navigationController?.pushViewController(pokemonDetailListViewController, animated: true)
+        
     }
 }

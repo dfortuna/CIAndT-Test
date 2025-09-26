@@ -11,32 +11,26 @@ import UIModule
 
 class PokemonDetailViewController: UIViewController {
     
-//    var viewModel: PokemonDetailViewModelProtocol
-//    var PokemonDetailView: PokemonDetailView
-//    
-//    public init(viewModel: PokemonDetailViewModelProtocol) {
-//        self.viewModel = viewModel
-//        self.PokemonDetailView = PokemonDetailView(viewModel: viewModel)
-//        super.init(nibName: nil, bundle: nil)
-//        viewModel.controller = self
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    public override func loadView() {
-//        view = PokemonDetailView
-//    }
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        title = "Pokédex"
-//    }
-//    
-//    override func viewWillAppear(_ animated: Bool) {
-//        view.backgroundColor = Colors.background.color
-//        viewModel.requestList()
-//    }
+    var viewModel: PokemonDetailViewModelProtocol
+    var pokemonDetailView: PokemonDetailView
+
+    public init(viewModel: PokemonDetailViewModelProtocol) {
+        self.viewModel = viewModel
+        self.pokemonDetailView = PokemonDetailView(viewModel: viewModel)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func loadView() {
+        view = pokemonDetailView
+    }
+   
+    override func viewWillAppear(_ animated: Bool) {
+        view.backgroundColor = Colors.background.color
+        viewModel.requestList()
+    }
     
 }
