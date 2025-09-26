@@ -33,7 +33,7 @@ class PokemonListCell: UITableViewCell {
         setup()
     }
     
-    public override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
         contentView.subviews.forEach { $0.removeFromSuperview() }
     }

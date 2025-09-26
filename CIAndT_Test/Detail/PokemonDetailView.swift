@@ -9,7 +9,7 @@ import UIKit
 import Utils
 import UIModule
 
-public final class PokemonDetailView: UIView {
+final class PokemonDetailView: UIView {
     
     var viewModel: PokemonDetailViewModelProtocol
     var errorView = ErrorView()
@@ -42,13 +42,13 @@ public final class PokemonDetailView: UIView {
 
 extension PokemonDetailView: ViewConfiguration {
     
-    public func addSubviews() {
+    func addSubviews() {
         addSubview(tableView)
         addSubview(errorView)
         addSubview(loadingView)
     }
     
-    public func setupConstraints() {
+    func setupConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         errorView.translatesAutoresizingMaskIntoConstraints = false
         loadingView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,7 @@ extension PokemonDetailView: ViewConfiguration {
         ])
     }
     
-    public func setupStyle() {
+    func setupStyle() {
         errorView.isHidden = true
         tableView.isHidden = false
     }
@@ -80,15 +80,15 @@ extension PokemonDetailView: ViewConfiguration {
 
 extension PokemonDetailView: UITableViewDelegate, UITableViewDataSource {
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.dataList.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PokemonDetailHeaderCell.self), for: indexPath) as? PokemonDetailHeaderCell else {

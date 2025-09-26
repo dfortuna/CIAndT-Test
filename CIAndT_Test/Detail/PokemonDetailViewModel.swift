@@ -26,7 +26,7 @@ protocol PokemonDetailViewModelDelegate: AnyObject {
 public final class PokemonDetailViewModel: PokemonDetailViewModelProtocol {
     
     private let pokemon: Pokemon
-    private(set) var pokemonDetail: PokemonDetailData?
+    var pokemonDetail: PokemonDetailData?
     private var service: NetworkingManagerProtocol
     weak var delegate: PokemonDetailViewModelDelegate?
     

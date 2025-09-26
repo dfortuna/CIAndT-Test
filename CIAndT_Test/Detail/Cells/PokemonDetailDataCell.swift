@@ -46,13 +46,13 @@ class PokemonDetailDataCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setup(viewModel: PokemonDetailViewModelProtocol, index: Int) {
+    func setup(viewModel: PokemonDetailViewModelProtocol, index: Int) {
         dataName.text = viewModel.getDataNames(forIndex: index)
         dataDescription.text = viewModel.getDataValue(forIndex: index)
         setup()
     }
     
-    public override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
         contentView.subviews.forEach { $0.removeFromSuperview() }
     }
@@ -60,13 +60,13 @@ class PokemonDetailDataCell: UITableViewCell {
 
 extension PokemonDetailDataCell: ViewConfiguration {
     
-    public func addSubviews() {
+    func addSubviews() {
         addSubview(stackView)
         stackView.addArrangedSubview(dataName)
         stackView.addArrangedSubview(dataDescription)
     }
     
-    public func setupConstraints() {
+    func setupConstraints() {
         dataDescription.translatesAutoresizingMaskIntoConstraints = false
         dataName.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +80,7 @@ extension PokemonDetailDataCell: ViewConfiguration {
         ])
     }
     
-    public func setupStyle() {
+    func setupStyle() {
         
     }
 }

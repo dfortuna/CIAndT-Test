@@ -49,6 +49,6 @@ extension LoadingView: ViewConfiguration {
     }
     
     public func setupStyle() {
-//        backgroundColor = UIColor(white: 0, alpha: 0.3)f
+
     }
 }

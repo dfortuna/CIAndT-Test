@@ -14,7 +14,7 @@ class PokemonDetailViewController: UIViewController {
     var viewModel: PokemonDetailViewModelProtocol
     var pokemonDetailView: PokemonDetailView
 
-    public init(viewModel: PokemonDetailViewModelProtocol) {
+    init(viewModel: PokemonDetailViewModelProtocol) {
         self.viewModel = viewModel
         self.pokemonDetailView = PokemonDetailView(viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
@@ -24,7 +24,7 @@ class PokemonDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func loadView() {
+    override func loadView() {
         view = pokemonDetailView
     }
    

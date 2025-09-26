@@ -9,7 +9,7 @@ import UIKit
 import Utils
 import UIModule
 
-public final class PokemonListView: UIView {
+final class PokemonListView: UIView {
     
     var viewModel: PokemonListViewModelProtocol
     var errorView = ErrorView()
@@ -54,13 +54,13 @@ public final class PokemonListView: UIView {
 
 extension PokemonListView: ViewConfiguration {
     
-    public func addSubviews() {
+    func addSubviews() {
         addSubview(loadingView)
         addSubview(tableView)
         addSubview(errorView)
     }
     
-    public func setupConstraints() {
+    func setupConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         errorView.translatesAutoresizingMaskIntoConstraints = false
         loadingView.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +83,7 @@ extension PokemonListView: ViewConfiguration {
         ])
     }
     
-    public func setupStyle() {
+    func setupStyle() {
         errorView.isHidden = true
         tableView.isHidden = false
         loadingView.startAnimating()
@@ -93,15 +93,15 @@ extension PokemonListView: ViewConfiguration {
 
 extension PokemonListView: UITableViewDelegate, UITableViewDataSource {
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.pokemons.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PokemonListCell.self), for: indexPath) as? PokemonListCell else {
             return UITableViewCell()
         }
@@ -110,11 +110,11 @@ extension PokemonListView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.didSelectRow(at: indexPath.row)
     }
     
-    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         viewModel.didSelectRow(at: indexPath.row)
     }
     

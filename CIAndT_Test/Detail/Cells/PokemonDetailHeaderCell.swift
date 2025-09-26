@@ -27,13 +27,13 @@ class PokemonDetailHeaderCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setup(viewModel: PokemonDetailViewModelProtocol, index: Int) {
+    func setup(viewModel: PokemonDetailViewModelProtocol, index: Int) {
         let imageURL = viewModel.getDataValue(forIndex: index) ?? ""
         pictureImageView.loadImage(from: imageURL)
         setup()
     }
     
-    public override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
         contentView.subviews.forEach { $0.removeFromSuperview() }
     }
@@ -41,11 +41,11 @@ class PokemonDetailHeaderCell: UITableViewCell {
 
 extension PokemonDetailHeaderCell: ViewConfiguration {
     
-    public func addSubviews() {
+    func addSubviews() {
         contentView.addSubview(pictureImageView)
     }
     
-    public func setupConstraints() {
+    func setupConstraints() {
         pictureImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             pictureImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -56,7 +56,7 @@ extension PokemonDetailHeaderCell: ViewConfiguration {
         ])
     }
     
-    public func setupStyle() {
+    func setupStyle() {
         
     }
 }

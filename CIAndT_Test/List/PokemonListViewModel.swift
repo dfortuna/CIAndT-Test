@@ -34,7 +34,7 @@ public final class PokemonListViewModel: PokemonListViewModelProtocol {
         }
     }
 
-    public init(service: NetworkingManagerProtocol = NetworkingManager()) {
+    init(service: NetworkingManagerProtocol = NetworkingManager()) {
         self.service = service
     }
 

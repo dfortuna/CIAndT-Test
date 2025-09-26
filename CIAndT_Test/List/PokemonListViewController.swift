@@ -18,7 +18,7 @@ class PokemonListViewController: UIViewController {
     var viewModel: PokemonListViewModelProtocol
     var pokemonListView: PokemonListView
     
-    public init(viewModel: PokemonListViewModelProtocol) {
+    init(viewModel: PokemonListViewModelProtocol) {
         self.viewModel = viewModel
         self.pokemonListView = PokemonListView(viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
@@ -29,7 +29,7 @@ class PokemonListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func loadView() {
+    override func loadView() {
         view = pokemonListView
     }
 
@@ -46,10 +46,8 @@ class PokemonListViewController: UIViewController {
 
 extension PokemonListViewController: PokemonListViewControllerProtocol {
     func didSelectItem(pokemon: Pokemon) {
-
         let pokemonDetailListViewModel = PokemonDetailViewModel(pokemon: pokemon)
         let pokemonDetailListViewController = PokemonDetailViewController(viewModel: pokemonDetailListViewModel)
         navigationController?.pushViewController(pokemonDetailListViewController, animated: true)
-        
     }
 }
