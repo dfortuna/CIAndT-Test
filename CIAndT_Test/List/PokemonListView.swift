@@ -9,13 +9,11 @@ import UIKit
 import Utils
 import UIModule
 
-public final class ErrorView: UIView { }
-
 public final class PokemonListView: UIView {
     
     var viewModel: PokemonListViewModelProtocol
-//    var errorView: ErrorView?
-    var loadingView: UIView = UIView()
+    var errorView = ErrorView()
+    var loadingView = LoadingView()
 
     lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView()
@@ -57,13 +55,14 @@ public final class PokemonListView: UIView {
 extension PokemonListView: ViewConfiguration {
     
     public func addSubviews() {
-        addSubview(tableView)
         addSubview(loadingView)
-//        addSubview(errorView)
+        addSubview(tableView)
+        addSubview(errorView)
     }
     
     public func setupConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        errorView.translatesAutoresizingMaskIntoConstraints = false
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -72,20 +71,22 @@ extension PokemonListView: ViewConfiguration {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
             
-//            loadingView.topAnchor.constraint(equalTo: topAnchor),
-//            loadingView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            loadingView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            loadingView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            errorView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            errorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            errorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            errorView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
             
-//            errorView.topAnchor.constraint(equalTo: topAnchor),
-//            errorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            errorView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            errorView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            loadingView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            loadingView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            loadingView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            loadingView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40)
         ])
     }
     
     public func setupStyle() {
-
+        errorView.isHidden = true
+        tableView.isHidden = false
+        loadingView.startAnimating()
     }
     
 }
@@ -113,10 +114,6 @@ extension PokemonListView: UITableViewDelegate, UITableViewDataSource {
         viewModel.didSelectRow(at: indexPath.row)
     }
     
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-    }
-    
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         viewModel.didSelectRow(at: indexPath.row)
     }
@@ -124,8 +121,18 @@ extension PokemonListView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension PokemonListView: PokemonListViewModelDelegate {
+    func showError(message: String) {
+        errorView.setData(message: message)
+        errorView.isHidden = false
+        tableView.isHidden = true
+        loadingView.stopAnimating()
+    }
+    
     func loadData(pokemons: [Pokemon]) {
+        tableView.isHidden = false
         refreshControl.endRefreshing()
+        loadingView.startAnimating()
         tableView.reloadData()
+        loadingView.stopAnimating()
     }
 }

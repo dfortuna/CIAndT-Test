@@ -19,6 +19,7 @@ protocol PokemonListViewModelProtocol: AnyObject {
 
 protocol PokemonListViewModelDelegate: AnyObject {
     func loadData(pokemons: [Pokemon])
+    func showError(message: String)
 }
 
 public final class PokemonListViewModel: PokemonListViewModelProtocol {
@@ -56,6 +57,6 @@ public final class PokemonListViewModel: PokemonListViewModelProtocol {
     }
     
     func showError(error: Error){
-        
+        delegate?.showError(message: "Sorry. Something went wrong.")
     }
 }

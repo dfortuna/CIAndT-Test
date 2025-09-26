@@ -20,6 +20,7 @@ protocol PokemonDetailViewModelProtocol: AnyObject {
 
 protocol PokemonDetailViewModelDelegate: AnyObject {
     func loadData(pokemonDetail: PokemonDetailData?)
+    func showError(message: String)
 }
 
 public final class PokemonDetailViewModel: PokemonDetailViewModelProtocol {
@@ -78,13 +79,12 @@ public final class PokemonDetailViewModel: PokemonDetailViewModelProtocol {
                 self.pokemonDetail = pokemonDetail
                 self.delegate?.loadData(pokemonDetail: self.pokemonDetail)
             case .failure(let error):
-                print()
                 showError(error: error)
             }
         }
     }
     
     func showError(error: Error){
-        
+        delegate?.showError(message: "Sorry. Something went wrong.")
     }
 }
